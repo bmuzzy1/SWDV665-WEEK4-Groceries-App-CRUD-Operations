@@ -13,15 +13,25 @@
     </ion-toolbar>
   </ion-header>
 
+<span class="no-item" *ngIf="loadItems().length === 0">
+<h1>The grocery list is currently empty!</h1>
+<h3>Please add items to populate the list.</h3>
+</span>
+
   <ion-list>
     <!-- Sliding item with text options on both sides -->
-    <ion-item-sliding *ngFor="let item of items; let i = index">
+    <ion-item-sliding *ngFor="let item of loadItems(); let i = index">
       <ion-item>  
         <ion-label>
           <h2>{{item.name}} - {{item.quantity}}</h2>
         </ion-label>
       </ion-item>
       <ion-item-options side="end">
+        <ion-button (click)="editItem(item, i)" color="primary" icon-start>
+          <ion-icon name="create"></ion-icon>
+          Edit
+        </ion-button>
+
         <ion-button (click)="removeItem(item, i)" color="danger" icon-start>
           <ion-icon name="trash"></ion-icon>
           Delete
